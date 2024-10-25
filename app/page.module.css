@@ -166,3 +166,14 @@ a.secondary {
     filter: invert();
   }
 }
+
+.form {
+  background-color: #ccc;
+  padding: 20px;
+}
+
+.searchSection {
+  background-color: aquamarine;
+  color: #1a1a1a;
+  padding: 20px;
+}

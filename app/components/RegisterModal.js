@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 
+
 export default function RegisterModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     nombre: '',
