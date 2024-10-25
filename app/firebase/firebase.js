@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, where, getDocs, addDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCnPFeH_LKfTUOUuTSxEBUj50DA-3Isv9o',
@@ -16,11 +23,27 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 // Agregar un nuevo usuario
-export const addUser = async ({ userName, document, userCode }) => {
+export const addUser = async ({
+  firstName,
+  lastName,
+  document,
+  department,
+  city,
+  phone,
+  email,
+  habeasData,
+  userCode,
+}) => {
   try {
     await addDoc(collection(db, 'users'), {
-      userName,
+      firstName,
+      lastName,
       document,
+      department,
+      city,
+      phone,
+      email,
+      habeasData,
       userCode,
     });
     console.log('Usuario añadido correctamente');
