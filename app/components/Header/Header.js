@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Menu, MenuItem } from '@mui/material';
 import styles from './Header.module.css';
 
 export default function Header({ openRegisterModal, openSearchModal }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
+  const handleOpenMenu = () => setIsMenuOpen(!isMenuOpen);
   const handleCloseMenu = (type) => {
-    setAnchorEl(null);
+    setIsMenuOpen(false);
     if (type === 'register') openRegisterModal();
     else if (type === 'search') openSearchModal();
   };
@@ -21,37 +19,25 @@ export default function Header({ openRegisterModal, openSearchModal }) {
         <a>VEHÍCULOS USADOS</a>
       </div>
       <div className={styles.rightNav}>
-        <Button
-          className={styles.navSorteoButton}
-          onClick={handleOpenMenu}
-          variant="outlined"
-          size="medium"
-        >
+        <button onClick={handleOpenMenu} className={styles.registerButton}>
           SORTEO
-        </Button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={() => handleCloseMenu(null)}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-          classes={{ paper: styles.menuPaper }}
-        >
-          <MenuItem
-            className={styles.menuItem}
-            onClick={() => handleCloseMenu('register')}
-          >
-            Registrarme
-          </MenuItem>
-          <MenuItem
-            className={styles.menuItem}
-            onClick={() => handleCloseMenu('search')}
-          >
-            Consultar mi código
-          </MenuItem>
-        </Menu>
+        </button>
+        {isMenuOpen && (
+          <div className={styles.menu}>
+            <div
+              className={styles.menuItem}
+              onClick={() => handleCloseMenu('register')}
+            >
+              Registrarme
+            </div>
+            <div
+              className={styles.menuItem}
+              onClick={() => handleCloseMenu('search')}
+            >
+              Consultar mi código
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

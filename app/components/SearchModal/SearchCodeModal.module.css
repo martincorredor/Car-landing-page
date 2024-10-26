@@ -61,6 +61,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 30px;
   margin-top: 10px;
 }
@@ -68,3 +69,94 @@
   font-size: 2rem;
   font-weight: 600;
 }
+
+.searchButton {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background: #3498db;
+  border: none;
+  z-index: 1;
+}
+.searchButton:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #2874a6;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.searchButton:hover {
+  color: #fff;
+}
+.searchButton:hover:after {
+  left: 0;
+  width: 100%;
+}
+.searchButton:active {
+  top: 2px;
+} 
+
+
+.aceptButton {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background: #58d68d;
+  border: none;
+  z-index: 1;
+}
+.aceptButton:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #229351;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.aceptButton:hover {
+  color: #fff;
+}
+.aceptButton:hover:after {
+  left: 0;
+  width: 100%;
+}
+.aceptButton:active {
+  top: 2px;
+} 

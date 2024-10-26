@@ -9,14 +9,33 @@ const SearchCodeModal = ({ open, onClose }) => {
   const [userCode, setUserCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSearch = async () => {
-    const user = await getUserByDocument(documentToSearch);
-    if (user) {
-      setUserCode(user.userCode);
+  const handleChange = (e) => {
+    if (errorMessage != '') {
       setErrorMessage('');
+    }
+    const { name, value } = e.target;
+
+    const validateNumericInput = (value) => {
+      return value.replace(/\D/g, '');
+    };
+    const numericValue = validateNumericInput(value);
+    setDocumentToSearch(numericValue);
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    if (documentToSearch.length >= 7 && documentToSearch.length <= 10) {
+      const user = await getUserByDocument(documentToSearch);
+      if (user) {
+        setUserCode(user.userCode);
+        setErrorMessage('');
+      } else {
+        setUserCode('');
+        setErrorMessage('Aún no estás registrado');
+      }
     } else {
-      setUserCode('');
-      setErrorMessage('Aún no estás registrado');
+      setErrorMessage('El documento debe tener entre 7 y 10 dígitos.');
     }
   };
 
@@ -36,44 +55,34 @@ const SearchCodeModal = ({ open, onClose }) => {
               <Typography color="primary" className={styles.codeResponse}>
                 Tu código es: {userCode}
               </Typography>
-              <Button
-                onClick={handleAccept}
-                variant="contained"
-                color="success"
-              >
+              <Button onClick={handleAccept} className={styles.aceptButton}>
                 Aceptar
               </Button>
             </div>
           ) : (
             <>
               <h2>Consulta tu código</h2>
-              <form>
+              <form onSubmit={handleSearch}>
                 <div className={styles.userBox}>
                   <input
                     type="text"
+                    name="document"
                     required
                     value={documentToSearch}
-                    onChange={(e) => setDocumentToSearch(e.target.value)}
+                    onChange={handleChange}
+                    minLength={7}
+                    maxLength={10}
                   />
                   <label>Número de Documento</label>
                 </div>
-                <Button
-                  onClick={handleSearch}
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: '30px', width: '100%' }}
-                >
+                <Button type="submit" className={styles.searchButton}>
                   Consultar
                 </Button>
               </form>
               {errorMessage && (
                 <div className={styles.modalResponse}>
                   <Typography color="error">{errorMessage}</Typography>
-                  <Button
-                    onClick={handleAccept}
-                    variant="contained"
-                    color="success"
-                  >
+                  <Button onClick={handleAccept} className={styles.aceptButton}>
                     Aceptar
                   </Button>
                 </div>

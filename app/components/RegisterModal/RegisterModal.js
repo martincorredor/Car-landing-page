@@ -126,8 +126,14 @@ const RegisterModal = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box className={styles.registerModalContent}>
+    <Modal open={open} onClose={handleAccept}>
+      <Box
+        className={
+          isRegistered
+            ? styles.registerModalContentError
+            : styles.registerModalContent
+        }
+      >
         {!generatedCode && (
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.userBox}>
@@ -254,14 +260,14 @@ const RegisterModal = ({
                 label="Autorizo el tratamiento de mis datos de acuerdo con la finalidad establecida en la política de protección de datos personales"
               />
             </div>
-            <Button
+            <button
               type="submit"
               variant="contained"
               color="primary"
               className={styles.registerButton}
             >
               Registrar Usuario
-            </Button>
+            </button>
           </form>
         )}
         {isRegistered ? (
@@ -269,9 +275,9 @@ const RegisterModal = ({
             <Typography variant="body1" color="error">
               {errorMessage}
             </Typography>
-            <Button onClick={handleAccept} variant="contained" color="success">
+            <button onClick={handleAccept} className={styles.aceptButton}>
               Aceptar
-            </Button>
+            </button>
           </div>
         ) : (
           generatedCode && (
@@ -283,13 +289,9 @@ const RegisterModal = ({
                   {generatedCode}
                 </Typography>
               </Typography>
-              <Button
-                onClick={handleAccept}
-                variant="contained"
-                color="success"
-              >
+              <button onClick={handleAccept} className={styles.aceptButton}>
                 Aceptar
-              </Button>
+              </button>
             </div>
           )
         )}
