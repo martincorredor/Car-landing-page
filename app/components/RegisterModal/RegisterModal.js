@@ -4,7 +4,6 @@ import {
   Modal,
   Box,
   Button,
-  TextField,
   Select,
   MenuItem,
   Checkbox,
@@ -110,7 +109,6 @@ const RegisterModal = ({
   };
 
   const handleAccept = () => {
-    // Limpiar los datos del formulario y cerrar el modal
     setFormData({
       firstName: '',
       lastName: '',
@@ -121,10 +119,10 @@ const RegisterModal = ({
       email: '',
       habeasData: false,
     });
-    setGeneratedCode(''); // Limpiar el código generado
-    setIsRegistered(false); // Reiniciar estado de registro
-    setErrorMessage(''); // Limpiar mensaje de error
-    onClose(); // Cerrar el modal
+    setGeneratedCode('');
+    setIsRegistered(false);
+    setErrorMessage('');
+    onClose();
   };
 
   return (
@@ -132,59 +130,70 @@ const RegisterModal = ({
       <Box className={styles.registerModalContent}>
         {!generatedCode && (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <TextField
-              label="Nombre"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-              fullWidth
-              margin="normal"
-              onInput={handleInput}
-            />
-            <TextField
-              label="Apellido"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-              fullWidth
-              margin="normal"
-              onInput={handleInput}
-            />
-            <TextField
-              type="text"
-              label="Cédula"
-              name="document"
-              value={formData.document}
-              onChange={handleChange}
-              required
-              onInvalid={handleValidation}
-              onInput={handleInputReset}
-              fullWidth
-              margin="normal"
-            />
+            <div className={styles.userBox}>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                onInput={handleInput}
+                required
+              />
+              <label>Nombre</label>
+            </div>
+            <div className={styles.userBox}>
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                onInput={handleInput}
+                required
+              />
+              <label>Apellido</label>
+            </div>
+            <div className={styles.userBox}>
+              <input
+                type="text"
+                name="document"
+                value={formData.document}
+                onChange={handleChange}
+                minLength={7}
+                maxLength={10}
+                onInvalid={handleValidation}
+                onInput={handleInputReset}
+                required
+              />
+              <label>Cédula</label>
+            </div>
             <Select
               label="Departamento"
               name="department"
               value={formData.department}
-              onChange={handleChange}
+              onChange={(e) => {
+                const selectedDepartment = departmentsList.find(
+                  (dept) => dept.name === e.target.value
+                );
+                if (selectedDepartment) fetchCities(selectedDepartment.id);
+                setFormData((prevState) => ({
+                  ...prevState,
+                  department: e.target.value,
+                  city: '',
+                }));
+              }}
               required
               fullWidth
               displayEmpty
+              className={styles.selectBox}
             >
               <MenuItem value="" disabled>
                 Selecciona tu Departamento
               </MenuItem>
-              {departmentsList.length > 0 ? (
-                departmentsList.map((dept) => (
-                  <MenuItem key={dept.id} value={dept.name}>
-                    {dept.name}
-                  </MenuItem>
-                ))
-              ) : (
-                <MenuItem disabled>No hay departamentos disponibles</MenuItem>
-              )}
+              {departmentsList.map((dept) => (
+                <MenuItem key={dept.id} value={dept.name}>
+                  {dept.name}
+                </MenuItem>
+              ))}
             </Select>
             <Select
               label="Ciudad"
@@ -196,6 +205,7 @@ const RegisterModal = ({
               displayEmpty
               margin="normal"
               disabled={!formData.department}
+              className={styles.selectBox}
             >
               <MenuItem value="" disabled>
                 Selecciona tu Ciudad
@@ -206,28 +216,30 @@ const RegisterModal = ({
                 </MenuItem>
               ))}
             </Select>
-            <TextField
-              label="Celular"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              onInvalid={handleValidation}
-              onInput={handleInputReset}
-              fullWidth
-              margin="normal"
-              type="text"
-            />
-            <TextField
-              label="Correo Electrónico"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              fullWidth
-              margin="normal"
-              type="email"
-            />
+            <div className={styles.userBox}>
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                minLength={8}
+                maxLength={10}
+                onInvalid={handleValidation}
+                onInput={handleInputReset}
+                required
+              />
+              <label>Celular</label>
+            </div>
+            <div className={styles.userBox}>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <label>Correo Electrónico</label>
+            </div>
             <div className={styles.habeasContainer}>
               <FormControlLabel
                 control={
@@ -236,13 +248,11 @@ const RegisterModal = ({
                     checked={formData.habeasData}
                     onChange={handleChange}
                     required
+                    className={styles.checkBox}
                   />
                 }
+                label="Autorizo el tratamiento de mis datos de acuerdo con la finalidad establecida en la política de protección de datos personales"
               />
-              <label>
-                Autorizo el tratamiento de mis datos de acuerdo con la finalidad
-                establecida en la política de protección de datos personales
-              </label>
             </div>
             <Button
               type="submit"

@@ -1,26 +1,16 @@
-'use client';
 import React, { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import styles from './Header.module.css';
 
-const MODAL_TYPE = {
-  register: 'register',
-  search: 'search',
-};
-
 export default function Header({ openRegisterModal, openSearchModal }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+
+  const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
   const handleCloseMenu = (type) => {
     setAnchorEl(null);
-    if (type && type === MODAL_TYPE.register) {
-      openRegisterModal();
-    } else if (type && type === MODAL_TYPE.search) {
-      openSearchModal();
-    }
+    if (type === 'register') openRegisterModal();
+    else if (type === 'search') openSearchModal();
   };
 
   return (
@@ -47,11 +37,18 @@ export default function Header({ openRegisterModal, openSearchModal }) {
           MenuListProps={{
             'aria-labelledby': 'basic-button',
           }}
+          classes={{ paper: styles.menuPaper }}
         >
-          <MenuItem onClick={() => handleCloseMenu(MODAL_TYPE.register)}>
+          <MenuItem
+            className={styles.menuItem}
+            onClick={() => handleCloseMenu('register')}
+          >
             Registrarme
           </MenuItem>
-          <MenuItem onClick={() => handleCloseMenu(MODAL_TYPE.search)}>
+          <MenuItem
+            className={styles.menuItem}
+            onClick={() => handleCloseMenu('search')}
+          >
             Consultar mi código
           </MenuItem>
         </Menu>

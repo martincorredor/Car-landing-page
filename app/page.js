@@ -6,13 +6,14 @@ import Header from './components/Header/Header';
 import { Button } from '@mui/material';
 import styles from './page.module.css';
 import Footer from './components/Footer/Footer';
+import PromotionModal from './components/PromotionModal/PromotionModal';
 
 export default function Home() {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isSearchModalOpen, setSearchModalOpen] = useState(false);
   const [departmentsList, setDepartmentsList] = useState([]);
   const [cities, setCities] = useState([]);
-
+  const [isPromotionModalOpen, setPromotionModalOpen] = useState(false);
   const departmentsAPI = 'https://api-colombia.com/api/v1/Department';
 
   const fetchDepartments = async () => {
@@ -42,9 +43,8 @@ export default function Home() {
 
   useEffect(() => {
     fetchDepartments();
+    setPromotionModalOpen(true);
   }, []);
-
-  console.log('search modal open?', isSearchModalOpen);
 
   return (
     <div className={styles.page}>
@@ -62,9 +62,13 @@ export default function Home() {
             className={styles.videoBackground}
           />
         </div>
-        <div className={styles.mainTitle}>MÁS QUE UN AUTO,<br/>UN ESTILO DE VIDA</div>
+        <div className={styles.mainTitle}>
+          MÁS QUE UN AUTO,
+          <br />
+          UN ESTILO DE VIDA
+        </div>
       </main>
-      <Footer/>
+      <Footer />
 
       <RegisterModal
         open={isRegisterModalOpen}
@@ -77,6 +81,12 @@ export default function Home() {
       <SearchCodeModal
         open={isSearchModalOpen}
         onClose={() => setSearchModalOpen(false)}
+      />
+      <PromotionModal
+        open={isPromotionModalOpen}
+        onClose={() => setPromotionModalOpen(false)}
+        openRegisterModal={() => setRegisterModalOpen(true)}
+        openSearchModal={() => setSearchModalOpen(true)}
       />
     </div>
   );

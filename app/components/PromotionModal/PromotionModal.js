@@ -2,24 +2,51 @@
 import React, { useState } from 'react';
 import { Modal, Box, TextField, Button, Typography } from '@mui/material';
 import styles from './PromotionModal.module.css';
+import Image from 'next/image';
 
-const PromotionModal = ({ open, onClose, code }) => {
-  const [userCode, setUserCode] = useState(code || null);
-  const [errorMessage, setErrorMessage] = useState('');
+export default function PromotionModal({
+  open,
+  onClose,
+  openRegisterModal,
+  openSearchModal,
+}) {
+  const handleRegister = () => {
+    onClose();
+    openRegisterModal();
+  };
+  const handleSearch = () => {
+    onClose();
+    openSearchModal();
+  };
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box className={styles.PromotionModalContent}>
-        <Button onClick={onClose} variant="contained">
-          Consultar
-        </Button>
-        {userCode && (
-          <Typography color="primary">Tu código es: {userCode}</Typography>
-        )}
-        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+      <Box className={styles.promotionModalContent}>
+        <Image
+          src="/camionetaWithoutBg.png"
+          alt="camioneta"
+          className={styles.promotionCarImage}
+          width={320}
+          height={200}
+        />
+        <div className={styles.content}>
+          <Image
+            src="/sorteoNeon.jpg"
+            alt="sorteo"
+            className={styles.sorteoImage}
+            width={320}
+            height={300}
+          />
+          <Typography>
+            Participa sin costo en el sorteo de un auto cero kilómetros.
+          </Typography>
+          <Typography className={styles.tycLabel}>Válido hasta 30/11/2024</Typography>
+          <div className={styles.buttonsContainer}>
+            <Button onClick={handleRegister}>Registrarme</Button>
+            <Button onClick={handleSearch}>Consultar mi código</Button>
+          </div>
+        </div>
       </Box>
     </Modal>
   );
-};
-
-export default SearchCodeModal;
+}
