@@ -3,16 +3,121 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
+  width: 80vw;
+  max-width: 800px;
+  height: 70vh;
+  max-height: 600px;
   background-color: #000;
+  border: none;
+  box-shadow: 10px #000;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-.promotionCarImage {}
+.sorteoImage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 
-.content {}
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
 
-.sorteoImage {}
+/* --------------- BUTTONS ---------------- */
 
-.buttonsContainer {}
+.registerButton {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background: rgba(255,151,0,1) 0%;
+  border: none;
+  z-index: 1;
+}
+.registerButton:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: rgba(251,75,2,1);
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.registerButton:hover {
+  color: #fff;
+}
+.registerButton:hover:after {
+  left: 0;
+  width: 100%;
+}
+.registerButton:active {
+  top: 2px;
+}
 
-.tycLabel {}
+
+
+.searchButton {
+  width: 140px;
+  height: 40px;
+  color: #000;
+  border-radius: 5px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background: #58d68d;
+  border: none;
+  z-index: 1;
+}
+.searchButton:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #229351;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.searchButton:hover {
+  color: #fff;
+}
+.searchButton:hover:after {
+  left: 0;
+  width: 100%;
+}
+.searchButton:active {
+  top: 2px;
+}
