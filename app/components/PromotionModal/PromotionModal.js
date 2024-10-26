@@ -22,12 +22,10 @@ export default function PromotionModal({
   return (
     <Modal open={open} onClose={onClose}>
       <Box className={styles.promotionModalContent}>
-        <Image
-          src="/sorteo.png"
+        <img
+          src='/sorteo.png'
           alt="sorteo"
           className={styles.sorteoImage}
-          width={600}
-          height={400}
         />
         <div className={styles.buttonsContainer}>
           <button onClick={handleRegister} className={styles.registerButton}>

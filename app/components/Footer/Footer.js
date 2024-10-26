@@ -50,7 +50,7 @@ export default function Footer() {
               width={16}
               height={16}
             />
-            Mi Github →
+            Mi Github
           </a>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default function Footer() {
         <Typography>CONTÁCTAME</Typography>
         <div className={styles.footerInfo}>
           <Typography>Email: dev.martincorredor@gmail.com</Typography>
-          <Typography>Whatsapp: (+57)3224682353</Typography>
+          <Typography>Whatsapp: (+57) 3224682353</Typography>
         </div>
       </div>
     </footer>
