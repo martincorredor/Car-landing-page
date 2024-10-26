@@ -5,6 +5,7 @@ import SearchCodeModal from './components/SearchModal/SearchCodeModal';
 import Header from './components/Header/Header';
 import { Button } from '@mui/material';
 import styles from './page.module.css';
+import Footer from './components/Footer/Footer';
 
 export default function Home() {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
@@ -63,6 +64,7 @@ export default function Home() {
         </div>
         <div className={styles.mainTitle}>MÁS QUE UN AUTO,<br/>UN ESTILO DE VIDA</div>
       </main>
+      <Footer/>
 
       <RegisterModal
         open={isRegisterModalOpen}

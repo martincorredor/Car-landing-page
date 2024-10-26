@@ -99,6 +99,7 @@
 }
 
 .videoContainer {
+  position: relative;
   top: 0;
   left: 0;
   width: 100vw;
@@ -118,8 +119,8 @@
 }
 
 .mainTitle {
-  position: absolute;
-  top: 40vh;
+  position: relative;
+  bottom: 50vh;
   left: 7vw;
   font-weight: 700;
   font-size: 6rem;

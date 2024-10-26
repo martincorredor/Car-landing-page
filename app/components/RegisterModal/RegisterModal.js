@@ -37,9 +37,46 @@ const RegisterModal = ({
   const [isRegistered, setIsRegistered] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const handleInput = (event) => {
+    const regex = /^[A-Za-z\s]*$/;
+    if (!regex.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^A-Za-z\s]/g, '');
+    }
+  };
+
+  const handleValidation = (e) => {
+    const minLength = e.target.minLength;
+    const maxLength = e.target.maxLength;
+    const valueLength = e.target.value.length;
+
+    if (valueLength < minLength) {
+      e.target.setCustomValidity(
+        `El número debe tener entre ${minLength} y ${maxLength} digitos.`
+      );
+    } else {
+      e.target.setCustomValidity('');
+    }
+  };
+
+  const handleInputReset = (e) => {
+    e.target.setCustomValidity('');
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'department') {
+
+    const validateNumericInput = (value) => {
+      return value.replace(/\D/g, '');
+    };
+
+    if (name === 'phone' || name === 'document') {
+      const numericValue = validateNumericInput(value);
+
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: numericValue,
+      }));
+    } else if (name === 'department') {
       const selectedDepartment = departmentsList.find(
         (dept) => dept.name === value
       );
@@ -60,15 +97,13 @@ const RegisterModal = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Comprobar si ya está registrado
     const existingUser = await getUserByDocument(formData.document);
     if (existingUser) {
       setIsRegistered(true);
       setErrorMessage('Ya estás registrado.');
-      return; // Salir si ya está registrado
+      return;
     }
 
-    // Si no está registrado, generar el código y añadir al usuario
     const userCode = generateUserCode();
     setGeneratedCode(userCode);
     await addUser({ ...formData, userCode });
@@ -105,7 +140,7 @@ const RegisterModal = ({
               required
               fullWidth
               margin="normal"
-              inputProps={{ pattern: '[A-Za-z ]+' }}
+              onInput={handleInput}
             />
             <TextField
               label="Apellido"
@@ -115,17 +150,19 @@ const RegisterModal = ({
               required
               fullWidth
               margin="normal"
-              inputProps={{ pattern: '[A-Za-z ]+' }}
+              onInput={handleInput}
             />
             <TextField
+              type="text"
               label="Cédula"
               name="document"
               value={formData.document}
               onChange={handleChange}
               required
+              onInvalid={handleValidation}
+              onInput={handleInputReset}
               fullWidth
               margin="normal"
-              inputProps={{ pattern: '[0-9]+' }}
             />
             <Select
               label="Departamento"
@@ -175,9 +212,11 @@ const RegisterModal = ({
               value={formData.phone}
               onChange={handleChange}
               required
+              onInvalid={handleValidation}
+              onInput={handleInputReset}
               fullWidth
               margin="normal"
-              inputProps={{ pattern: '[0-9]+' }}
+              type="text"
             />
             <TextField
               label="Correo Electrónico"
