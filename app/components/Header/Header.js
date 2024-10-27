@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 import styles from './Header.module.css';
 
 export default function Header({ openRegisterModal, openSearchModal }) {
@@ -18,6 +19,7 @@ export default function Header({ openRegisterModal, openSearchModal }) {
         <a>CONCESIONARIOS</a>
         <a>VEHÍCULOS USADOS</a>
       </div>
+      <MenuIcon className={styles.menuIcon}/>
       <div className={styles.rightNav}>
         <button onClick={handleOpenMenu} className={styles.registerButton}>
           SORTEO

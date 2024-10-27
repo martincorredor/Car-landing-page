@@ -4,7 +4,8 @@
   align-items: flex-start;
   justify-content: space-around;
   width: 100vw;
-  height: 30vh;
+  height: 20vh;
+  margin-top: -100px;
 }
 
 .footer a {
@@ -34,7 +35,28 @@
 }
 
 .footerInfo {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 1024px) {
+  .footer {
     flex-direction: column;
-    gap: 10px;
+    padding: 0 10vw;
+    height: 30vh;
+    margin-top: 0;
+    gap: 7vw;
+  }
+  .footerLinksContainer {
+    gap: 4vw;
+  }
+
+  .footerLinks {
+    gap: 5vw;
+  }
+
+  .footerInfoContainer {
+    gap: 4vw;
+  }
 }
